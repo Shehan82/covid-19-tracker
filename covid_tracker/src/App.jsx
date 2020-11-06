@@ -51,7 +51,7 @@ function App() {
         </FormControl>
     </div>
 
-    <div className="stats">
+    <div className="app__stats">
       <InfoBox title="Corona cases" cases={10000} total={39848903}/>
       <InfoBox title="Corona recovery" cases={340} total={39848234903}/>
       <InfoBox title="Corona deaths" cases={2342300} total={3988903}/>
