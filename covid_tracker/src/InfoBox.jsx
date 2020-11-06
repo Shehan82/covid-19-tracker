@@ -1,28 +1,27 @@
 import React from 'react';
 import { Card, CardContent, Typography } from '@material-ui/core';
 
-function InfoBox(title, cases, total) {
+function InfoBox(props) {
     return (
-        <div>
+    
             <Card className="infoBox">
                 <CardContent>
                 <Typography className="infoBox__title" color="textSecondary">
-                    {title}
+                    {props.title}
                 </Typography>
 
-                <h2 className="infoBox__cases">{cases}</h2>
+                <h2 className="infoBox__cases">{props.cases}</h2>
 
                 <Typography className="infoBox__total" color="textSecondary">
-                    {total}
+                    {props.total}
                 </Typography>
 
                 </CardContent>
             </Card>
-            
-        </div>
-    )
+        
+    );
 }
 
-export default InfoBox
+export default InfoBox;
 
 
