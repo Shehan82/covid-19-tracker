@@ -5,13 +5,7 @@ import { useEffect } from 'react';
 
 function App() {
 
-  const [countries, setCountries] = useState([
-      "Sri lanka",
-      "USA",
-      "India",
-      "Japan",
-      "China"
-  ]);
+  const [countries, setCountries] = useState([]);
 
   // useeffect runs a pieace of cose base on a given condition 
 
@@ -27,8 +21,11 @@ function App() {
             value:country.countryInfo.iso2
           }
         ));
+        setCountries(countries);
       })
     }
+
+    getCountries();
   }, []);
 
   return (
@@ -38,7 +35,7 @@ function App() {
         <FormControl className="app__dropdown">
           <Select value="worldWide">
             {countries.map(x =>(
-              <MenuItem>{x}</MenuItem>
+              <MenuItem value={x.value}>{x.name}</MenuItem>
             ))}
           </Select>
         </FormControl>
