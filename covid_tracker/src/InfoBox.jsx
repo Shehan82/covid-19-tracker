@@ -6,14 +6,14 @@ function InfoBox(props) {
     
             <Card className="infoBox">
                 <CardContent>
-                <Typography className="infoBox__title" color="textSecondary">
+                <Typography className="infoBox__title" color=" #03396c">
                     {props.title}
                 </Typography>
 
-                <h2 className="infoBox__cases">{props.cases}</h2>
+                <h2 className="infoBox__cases">{props.cases} <small>today</small></h2>
 
                 <Typography className="infoBox__total" color="textSecondary">
-                    {props.total}
+                    {props.total} total
                 </Typography>
 
                 </CardContent>

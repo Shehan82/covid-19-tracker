@@ -13,5 +13,40 @@
 .app__stats
 {
   display: flex;
+  justify-content: space-between;
 
+}
+
+.app__left
+{
+  flex: 0.8;
+  padding: 20px;
+}
+
+.app
+{
+  display: flex;
+  justify-content: space-around;
+}
+
+.infoBox
+{
+  width: 200px;
+}
+
+.infoBox__title
+{
+  color: #03396c;
+}
+
+@media (max-width: 990px)
+{
+  .app
+  {
+    flex-direction: column;
+  }
+  .app__left
+  {
+    flex: 1;
+  }
 }

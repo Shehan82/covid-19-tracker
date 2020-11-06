@@ -1,15 +1,17 @@
 import './App.css';
-import { Button, FormControl, InputLabel, Input, FormHelperText, MenuItem , Select} from '@material-ui/core';
+import { Button, FormControl, InputLabel, Input, FormHelperText, MenuItem , Select, Card, CardContent} from '@material-ui/core';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import InfoBox from './InfoBox';
+import Map from './Map'
 
 function App() {
 
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState('WorldWide');
+  const [coronaInfo, setCoronaInfo] = useState({});
 
-  // useeffect runs a pieace of cose base on a given condition 
+  
 
   useEffect(()=>{
     // send a request , wait and do
@@ -34,46 +36,67 @@ function App() {
   {
     const countryCode = event.target.value;
     setCountry(countryCode);
-    console.log(countryCode);
+    const url = 
+      countryCode === "WorldWide"
+      ? "https://disease.sh/v3/covid-19/all"
+      : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
+
+      await fetch(url)
+      .then((response)=>response.json())
+      .then((data) =>  {
+        console.log(data);
+        setCountry(countryCode);
+        setCoronaInfo(data);
+      })
+
+      
+
+
   }
 
   return (
     <div className="app">
-      <div className="app__header">
-        <h1>Covid 19 tracker</h1>
-        <FormControl className="app__dropdown">
-          <Select onChange={countryChange} variant="outlined" value={country}>
-            <MenuItem  value="WorldWide">Worldwide</MenuItem>
-            {countries.map(x =>(
-              <MenuItem value={x.value}>{x.name}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-    </div>
 
-    <div className="app__stats">
-      <InfoBox title="Corona cases" cases={10000} total={39848903}/>
-      <InfoBox title="Corona recovery" cases={340} total={39848234903}/>
-      <InfoBox title="Corona deaths" cases={2342300} total={3988903}/>
-      {/* small info boxes cases */}
-      {/* small info boxes death */}
-      {/* small info boxes recovery */}
+      <div className="app__left">
+          <div className="app__header">
+            <h1>Covid 19 tracker</h1>
+            <FormControl className="app__dropdown">
+              <Select onChange={countryChange} variant="outlined" value={country}>
+                <MenuItem  value="WorldWide">Worldwide</MenuItem>
+                {countries.map(x =>(
+                  <MenuItem value={x.value}>{x.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+        </div>
 
-    </div>
-     
-       
-      {/* dropdown */}
+        <div className="app__stats">
+          <InfoBox title="Corona cases" cases={coronaInfo.todayCases} total={coronaInfo.cases}/>
+          <InfoBox title="Corona recovery" cases={coronaInfo.todayRecovered} total={coronaInfo.recovered}/>
+          <InfoBox title="Corona deaths" cases={coronaInfo.todayDeaths} total={coronaInfo.deaths}/>
+          {/* small info boxes cases */}
+          {/* small info boxes death */}
+          {/* small info boxes recovery */}
 
-      
+        </div>
+        
 
-      {/* Large info boxes */}
+          {/* <Map/> */}
 
-      {/* table */}
-
-      {/* graph */}
+    
 
 
-      
+          
+          </div>
+
+          {/* <Card className="app__right">
+            <CardContent>
+                  <h3>live cases by country</h3>
+                  <h3>World wide new</h3>
+            </CardContent>
+
+          </Card> */}
+ 
     
       
     </div>
