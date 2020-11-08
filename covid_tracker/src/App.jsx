@@ -94,7 +94,6 @@ function App() {
                   <h3>live cases by country</h3>
                   <h3>World wide new</h3>
             </CardContent>
-
           </Card> */}
  
     
