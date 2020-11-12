@@ -27,6 +27,13 @@ function App() {
         ));
         setCountries(countries);
       })
+      fetch("https://disease.sh/v3/covid-19/all")
+      .then(response => response.json())
+      .then((data)=>{
+        
+        setCoronaInfo(data);
+
+      })
     }
 
     getCountries();
@@ -48,9 +55,6 @@ function App() {
         setCountry(countryCode);
         setCoronaInfo(data);
       })
-
-      
-
 
   }
 
@@ -81,20 +85,16 @@ function App() {
         </div>
         
 
-          {/* <Map/> */}
+          <Map/>
 
-    
-
-
-          
           </div>
 
-          {/* <Card className="app__right">
+          <Card className="app__right">
             <CardContent>
                   <h3>live cases by country</h3>
                   <h3>World wide new</h3>
             </CardContent>
-          </Card> */}
+          </Card>
  
     
       
