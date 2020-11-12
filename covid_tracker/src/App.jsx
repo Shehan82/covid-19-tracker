@@ -1,18 +1,20 @@
 import './App.css';
-import { Button, FormControl, InputLabel, Input, FormHelperText, MenuItem , Select, Card, CardContent} from '@material-ui/core';
+import { Button, FormControl, InputLabel, Input, FormHelperText, MenuItem , Select, Card, CardContent, Table} from '@material-ui/core';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import InfoBox from './InfoBox';
-import Map from './Map'
+import Map from './Map';
+import Tdata from './Tdata';
 
 function App() {
 
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState('WorldWide');
   const [coronaInfo, setCoronaInfo] = useState({});
+  const [tableDate, setTableData] = useState([]);
 
   
-
+  <Table/>
   useEffect(()=>{
     // send a request , wait and do
     const getCountries = async () => {
@@ -26,6 +28,8 @@ function App() {
           }
         ));
         setCountries(countries);
+        setTableData(data);
+        console.log(data);
       })
       fetch("https://disease.sh/v3/covid-19/all")
       .then(response => response.json())
@@ -85,14 +89,17 @@ function App() {
         </div>
         
 
-          <Map/>
+          {/* <Map/> */}
 
           </div>
 
           <Card className="app__right">
             <CardContent>
-                  <h3>live cases by country</h3>
+                  <h3>Live cases by country</h3>
+                  <Tdata countries={tableDate} />
+       
                   <h3>World wide new</h3>
+                  
             </CardContent>
           </Card>
  
