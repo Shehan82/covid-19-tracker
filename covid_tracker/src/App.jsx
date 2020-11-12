@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import InfoBox from './InfoBox';
 import Map from './Map';
 import Tdata from './Tdata';
+import {sortData} from './util';
+import Graph from './Graph';
 
 function App() {
 
@@ -28,7 +30,8 @@ function App() {
           }
         ));
         setCountries(countries);
-        setTableData(data);
+        const sortedData = sortData(data);
+        setTableData(sortedData);
         console.log(data);
       })
       fetch("https://disease.sh/v3/covid-19/all")
@@ -99,6 +102,7 @@ function App() {
                   <Tdata countries={tableDate} />
        
                   <h3>World wide new</h3>
+                  <Graph/>
                   
             </CardContent>
           </Card>
