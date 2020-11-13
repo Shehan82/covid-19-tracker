@@ -39,6 +39,32 @@
   color: #03396c;
 }
 
+.app__graph
+{
+  margin-top: 40px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ 
+}
+.recovery
+{
+  box-shadow: 0 4px 8px 0 rgba(52, 191, 89,0.9), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.deaths
+{
+  box-shadow: 0 4px 8px 0 rgba(207, 64, 64,0.9), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.cases
+{
+  box-shadow: 0 4px 8px 0 rgba(207, 169, 64,0.9), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.tableDiv
+{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 20px;
+
+}
+
+
 @media (max-width: 990px)
 {
   .app

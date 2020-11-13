@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from 'react';
-import { Bar} from "react-chartjs-2"
+import { Bar, Line, Pie} from "react-chartjs-2"
 
 function Graph(props) {
     const url = props.link;
@@ -21,7 +21,7 @@ function Graph(props) {
         .then(res => res.json())
         .then(data => {
             const diff = (cases)=>{
-                var dataArr = Object.values(data.timeline.cases);
+                var dataArr = Object.values(cases);
                 var newArr = [];
                 for(var i=0; i<dataArr.length-1;i++)
                 {
@@ -36,7 +36,7 @@ function Graph(props) {
             }
 
             const labels = (cases)=>{
-                var labelsArr = Object.keys(data.timeline.cases);
+                var labelsArr = Object.keys(cases);
                 var newLabelsArr = [];
                 for(var i=1; i<labelsArr.length;i++)
                 {
@@ -59,16 +59,24 @@ function Graph(props) {
                 }
                  return colorsArr;
             }
-
-           var u = data.timeline.cases;
+            var u = "";
+            if(url === "https://disease.sh/v3/covid-19/historical/all?lastdays=30")
+            {
+                u = data.cases;
+            }
+            else
+            {
+                u = data.timeline.cases;
+            }
+           
           
             setLdata({
                 labels:labels(u),
                 datasets:[
                     {
                         label:'Corona cases',
-                        data: diff(data.timeline.cases),
-                        backgroundColor:colors(data.timeline.cases)
+                        data: diff(u),
+                        backgroundColor:colors(u)
                     }
                 ]
 
@@ -79,7 +87,7 @@ function Graph(props) {
     }, [url])
     return (
         <div className="graph__bar">
-            
+          
             <Bar data={lData} />
 
         </div>

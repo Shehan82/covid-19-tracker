@@ -36,7 +36,7 @@ function App() {
         setTableData(sortedData);
         console.log(data);
       })
-      fetch("https://disease.sh/v3/covid-19/countries/SL")
+      fetch("https://disease.sh/v3/covid-19/countries/LK")
       .then(response => response.json())
       .then((data)=>{
         
@@ -90,7 +90,7 @@ function App() {
 
       <div className="app__left">
           <div className="app__header">
-            <h1>Covid 19 tracker</h1>
+            <h2>COVID 19 TRACKER</h2>
             <FormControl className="app__dropdown">
               <Select onChange={countryChange} variant="outlined" value={country}>
                 <MenuItem  value="WorldWide">Worldwide</MenuItem>
@@ -102,9 +102,10 @@ function App() {
         </div>
 
         <div className="app__stats">
-          <InfoBox title="Corona cases" cases={coronaInfo.todayCases} total={coronaInfo.cases}/>
-          <InfoBox title="Corona recovery" cases={coronaInfo.todayRecovered} total={coronaInfo.recovered}/>
-          <InfoBox title="Corona deaths" cases={coronaInfo.todayDeaths} total={coronaInfo.deaths}/>
+          <div className="cases"><InfoBox title="Corona cases" cases={coronaInfo.todayCases} total={coronaInfo.cases}/></div>
+          <div className="recovery"><InfoBox title="Corona recovery" cases={coronaInfo.todayRecovered} total={coronaInfo.recovered}/></div>
+          <div className="deaths"><InfoBox title="Corona deaths" cases={coronaInfo.todayDeaths} total={coronaInfo.deaths}/></div>
+          
           {/* small info boxes cases */}
           {/* small info boxes death */}
           {/* small info boxes recovery */}
@@ -113,20 +114,23 @@ function App() {
         
 
           {/* <Map/> */}
+          <div className="app__graph"><Card >
+          <CardContent> 
           <Graph link={url}/>
+          </CardContent> 
+          </Card></div>
+          
 
           </div>
 
-          <Card className="app__right">
-            <CardContent>
-                  <h3>Live cases by country</h3>
-                  <Tdata countries={tableDate} />
-       
-                  <h3>World wide new</h3>
-                 
-                  
-            </CardContent>
-          </Card>
+          <div className="tableDiv">
+            <Card className="app__right">
+              <CardContent>
+                    
+                    <Tdata countries={tableDate} />
+              </CardContent>
+            </Card>
+          </div>
  
     
       

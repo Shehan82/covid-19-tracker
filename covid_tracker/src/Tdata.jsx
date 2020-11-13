@@ -9,7 +9,7 @@ function Tdata(props) {
             <thead className="thead-dark">
                 <tr>
                     <th>Country</th>
-                    <th>cases</th>
+                    <th>Total cases</th>
                 </tr>
             </thead>
             <tbody>
