@@ -74,7 +74,7 @@ function Graph(props) {
                 labels:labels(u),
                 datasets:[
                     {
-                        label:'Corona cases',
+                        label:'DAILY NEW CASES',
                         data: diff(u),
                         backgroundColor:colors(u)
                     }
