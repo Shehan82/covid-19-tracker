@@ -1,8 +1,9 @@
 import {React, useEffect, useState} from 'react';
-import {Line, Doughnut, Bar} from "react-chartjs-2"
+import { Bar} from "react-chartjs-2"
 
-function Graph() {
-    const [data, setData] = useState({});
+function Graph(props) {
+    const url = props.link;
+    console.log(props.link + " ksjd");
     const [lData, setLdata] = useState({
         labels: [],
         datasets:[
@@ -13,43 +14,71 @@ function Graph() {
             }
         ]
     });
+    
     useEffect(() => {
-        fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=10")
+       
+        fetch(url)
         .then(res => res.json())
         .then(data => {
-            const cd = data.cases.map((a,b)=>{
-                return b-a;
-            });
-            console.log(cd);
+            const diff = (cases)=>{
+                var dataArr = Object.values(data.timeline.cases);
+                var newArr = [];
+                for(var i=0; i<dataArr.length-1;i++)
+                {
+                    var difference = dataArr[i+1] - dataArr[i];
+                    newArr.push(difference);
+                    
+                }
+
+                console.log(newArr);
+                return newArr;
+                
+            }
+
+            const labels = (cases)=>{
+                var labelsArr = Object.keys(data.timeline.cases);
+                var newLabelsArr = [];
+                for(var i=1; i<labelsArr.length;i++)
+                {
+                    var lb = labelsArr[i];
+                    newLabelsArr.push(lb);
+                    
+                }
+
+               
+                return newLabelsArr;
+                
+            }
+
+            
+            const colors = (num) => {
+                var colorsArr = [];
+                for(var i=0; i<Object.values(num).length-1; i++)
+                {
+                    colorsArr.push('rgba(255, 99, 132, 0.7)');
+                }
+                 return colorsArr;
+            }
+
+           var u = data.timeline.cases;
+          
             setLdata({
-                labels:Object.keys(data.cases),
+                labels:labels(u),
                 datasets:[
                     {
                         label:'Corona cases',
-                        data:Object.values(data.cases),
-                        backgroundColor:[
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)'
-                            
-                        ]
+                        data: diff(data.timeline.cases),
+                        backgroundColor:colors(data.timeline.cases)
                     }
                 ]
 
             });
-            console.log(Object.keys(data.cases));
+         
 
         })
-    }, [])
+    }, [url])
     return (
-        <div>
+        <div className="graph__bar">
             
             <Bar data={lData} />
 

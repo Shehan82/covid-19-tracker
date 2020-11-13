@@ -1,9 +1,9 @@
 import './App.css';
-import { Button, FormControl, InputLabel, Input, FormHelperText, MenuItem , Select, Card, CardContent, Table} from '@material-ui/core';
+import { FormControl, MenuItem , Select, Card, CardContent} from '@material-ui/core';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import InfoBox from './InfoBox';
-import Map from './Map';
+// import Map from './Map';
 import Tdata from './Tdata';
 import {sortData} from './util';
 import Graph from './Graph';
@@ -11,14 +11,16 @@ import Graph from './Graph';
 function App() {
 
   const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState('WorldWide');
+  const [country, setCountry] = useState('LK');
   const [coronaInfo, setCoronaInfo] = useState({});
   const [tableDate, setTableData] = useState([]);
+  const [url, setUrl] = useState("https://disease.sh/v3/covid-19/historical/LK?lastdays=30");
 
   
-  <Table/>
+  
   useEffect(()=>{
     // send a request , wait and do
+    
     const getCountries = async () => {
       await fetch("https://disease.sh/v3/covid-19/countries")
       .then((response)=> response.json())
@@ -34,22 +36,34 @@ function App() {
         setTableData(sortedData);
         console.log(data);
       })
-      fetch("https://disease.sh/v3/covid-19/all")
+      fetch("https://disease.sh/v3/covid-19/countries/SL")
       .then(response => response.json())
       .then((data)=>{
         
         setCoronaInfo(data);
 
       })
+      
     }
 
+    
+   
+
     getCountries();
+    
   }, []);
 
   const countryChange = async (event) =>
   {
     const countryCode = event.target.value;
     setCountry(countryCode);
+    const link =
+    countryCode === "WorldWide"
+      ? "https://disease.sh/v3/covid-19/historical/all?lastdays=30"
+      : `https://disease.sh/v3/covid-19/historical/${countryCode}?lastdays=30`;
+
+    // const link = `https://disease.sh/v3/covid-19/historical/${countryCode}?lastdays=30`;
+    setUrl(link);
     const url = 
       countryCode === "WorldWide"
       ? "https://disease.sh/v3/covid-19/all"
@@ -58,12 +72,18 @@ function App() {
       await fetch(url)
       .then((response)=>response.json())
       .then((data) =>  {
-        console.log(data);
+        
         setCountry(countryCode);
         setCoronaInfo(data);
+       
       })
 
+     
+    
+
   }
+
+ 
 
   return (
     <div className="app">
@@ -93,6 +113,7 @@ function App() {
         
 
           {/* <Map/> */}
+          <Graph link={url}/>
 
           </div>
 
@@ -102,7 +123,7 @@ function App() {
                   <Tdata countries={tableDate} />
        
                   <h3>World wide new</h3>
-                  <Graph/>
+                 
                   
             </CardContent>
           </Card>
