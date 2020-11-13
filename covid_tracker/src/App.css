@@ -2,6 +2,10 @@
 {
   margin: 0;
 }
+body
+{
+  min-width: 770px;
+}
 
 .app__header
 {
